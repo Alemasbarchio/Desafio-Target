@@ -56,16 +56,24 @@ export const targetChalenge = async (req, res) => {
         const fatData = await dataManager.readFatFromFile();
         console.log("Dados lidos:", fatData);
         let totalFaturamento = Object.values(fatData).reduce((acc, value) => acc + value, 0);
-
-
         let percentages = {};
         Object.entries(fatData).forEach(([state, value]) => {
             percentages[state] = ((value / totalFaturamento) * 100).toFixed(2);
         });
 
         //#endregion
+
+        //#region  Exercicio 5
+        const entrada = "exemplo";
+        let invertida = "";
+        for (let i = entrada.length - 1; i >= 0; i--) {
+            invertida += entrada[i];
+        }
+        console.log(invertida);
+        //#endregion
+
         console.log("Percentual de faturamento por estado:", percentages);
-        res.render("dados", { title: "Desafio Target", result, soma, percentages });
+        res.render("dados", { title: "Desafio Target", result, soma, percentages, entrada, invertida });
 
     } catch (error) {
         console.log(error);
